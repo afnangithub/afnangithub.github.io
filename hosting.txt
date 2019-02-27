@@ -1,0 +1,5 @@
+git remote add origin https://github.com/afnangithub/afnangithub.github.io.git
+
+git add -A
+git commit -m "catatan perubahan berubah"
+git push origin master
