@@ -19,6 +19,7 @@ function saveForLater(competition) {
     })
     .then(function () {
       console.log("Data berhasil di simpan.");
+      M.toast({html: 'Data berhasil di simpan.'});
     });
 }
 
@@ -72,6 +73,7 @@ function deleteById(id) {
       return tx.complete;
     }).then(function () {
       console.log('Item deleted');
+      M.toast({html: 'Data berhasil di hapus.'});
     });
   });
 }

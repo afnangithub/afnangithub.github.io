@@ -48,7 +48,7 @@ self.addEventListener("install", function (event) {
     })
   );
 });
-*/
+
 self.addEventListener("fetch", function (event) {
   //var base_url = "https://readerapi.codepolitan.com/";
   var base_url = "https://api.football-data.org/";
@@ -85,6 +85,7 @@ self.addEventListener("activate", function (event) {
     })
   );
 });
+*/
 
 
 if (workbox)
@@ -97,11 +98,7 @@ workbox.precaching.precacheAndRoute([
   { url: '/index.html', revision: '1' },
   { url: '/team.html', revision: '1' },
   { url: '/nav.html', revision: '1' },
-  { url: '/pages/home.html', revision: '1' },
-  { url: '/pages/about.html', revision: '1' },
-  { url: '/pages/contact.html', revision: '1' },
-  { url: '/pages/saved.html', revision: '3' },
-  { url: '/css/materialize.min.css.html', revision: '1' },
+  { url: '/css/materialize.min.css', revision: '1' },
   { url: '/js/materialize.min.js', revision: '1' },
   { url: '/nav.html', revision: '1' },
   { url: '/manifest.json', revision: '1' },
@@ -115,6 +112,17 @@ workbox.precaching.precacheAndRoute([
 workbox.routing.registerRoute(
   new RegExp('/pages/'),
   workbox.strategies.staleWhileRevalidate({
-    cacheName: CACHE_NAME
+    cacheName: 'pages'
   })
 );
+
+workbox.routing.registerRoute(
+  new RegExp('https://api.football-data.org/'),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxEntries: 50
+      })
+    ]
+}));
